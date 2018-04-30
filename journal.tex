@@ -1,0 +1,125 @@
+%------------------------------------------------------------------------------
+% Beginning of journal.tex
+%------------------------------------------------------------------------------
+%
+% AMS-LaTeX version 2 sample file for journals, based on amsart.cls.
+%
+%        ***     DO NOT USE THIS FILE AS A STARTER.      ***
+%        ***  USE THE JOURNAL-SPECIFIC *.TEMPLATE FILE.  ***
+%
+% Replace amsart by the documentclass for the target journal, e.g., tran-l.
+%
+\documentclass{amsart}
+
+%     If your article includes graphics, uncomment this command.
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{appendix}
+\usepackage{csvsimple}
+
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{xca}[theorem]{Exercise}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\numberwithin{equation}{section}
+
+%    Absolute value notation
+\newcommand{\abs}[1]{\lvert#1\rvert}
+
+%    Blank box placeholder for figures (to avoid requiring any
+%    particular graphics capabilities for printing this document).
+\newcommand{\blankbox}[2]{%
+  \parbox{\columnwidth}{\centering
+%    Set fboxsep to 0 so that the actual size of the box will match the
+%    given measurements more closely.
+    \setlength{\fboxsep}{0pt}%
+    \fbox{\raisebox{0pt}[#2]{\hspace{#1}}}%
+  }%
+}
+
+\begin{document}
+
+\title{40.305 Advanced Topics in Stochastic Modelling\\Course Project}
+
+%    Information for first author
+\author{Basil R. Yap}
+%    Address of record for the research reported here
+
+%    Current address
+% \curraddr{Department of Mathematics and Statistics,
+% Case Western Reserve University, Cleveland, Ohio 43403}
+% \email{xyz@math.university.edu}
+%    \thanks will become a 1st page footnote.
+%\thanks{The first author was supported in part by NSF Grant \#000000.}
+
+%    Information for second author
+
+
+%    General info
+
+\date{April 21, 2018 and, in revised form, April 30, 2018.}
+
+\maketitle
+
+\section*{Implementation}
+The simulation was implemented in python using an estimated run of 1,000,000 weeks. The code sample can be found in the appendix and at 
+\url{https://github.com/Dekatria/201804.university.t7.advanced_stochastic.project}.\\
+\vspace{1pt}\\
+The implementation is fully customisable with parameters such as the distribution of the store and behaviour of customers as modular components of the simulation program. The store behaviour is scalable in both stores and distribution, more stores with many more weeks accounted for in the future (as long as the distribution remains discrete). A sample of the store configuration file has been attached in the appendix.
+
+%% The correct journal style for \specialsection is all uppercase; a known bug
+%% in amsart.cls prevents this, so input must be uppercase until it is fixed.
+%\specialsection*{This is a Special Section Head}
+\section*{Questions Considered}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Renewal Time}
+\textbf{Suitable Regeneration Time: }when the units ordered in the week dips below or equal to the average, in this case: \textbf{70 units}.
+
+\section{Regenerative Simulations}
+\begin{enumerate}
+\item \textbf{The expected number of orders in a week in steady-state}\\
+$f_1(q)=g(q)+g_n$ where $g(q)$ is the the number of stores ordering that week.\\
+\textbf{Empirical Values: 40.74}
+\item \textbf{The expected number of orders in a week in steady-state}\\
+$f_2(q)=\sum^n_{i=1}g_i$\\
+\textbf{Empirical Values: 70.00}
+\item \textbf{The probability that more than 75 orders were made in a week in steady state}\\
+$f_3=\max\{0,f_2(q)-75\}$\\
+\textbf{Empirical Values: 0.4301}
+\item \textbf{The probability there are no store orders that week in steady state}\\
+$f_4=\left\{\begin{array}{ll}0 & g(q)>0\\1 & \text{Otherwise}\end{array}\right.$\\
+\textbf{Empirical Values: 0.5782}
+\item\textbf{Cost function value at steady state}
+$c(q)= 5+0.1(g(q)+q_n)+0.1(f_2)+100(f_2)^{0.25}$\\
+\textbf{Empirical Values: 300.04}
+\end{enumerate}
+
+\begin{appendices}
+\chapter{main python file}
+\lstinputlisting[language=Python]{code/main.py}
+\chapter{helper functions file}
+\lstinputlisting[language=Python]{code/helper.py}
+\chapter{configuration file}\\
+\csvautotabular{config/config_file.1.csv}
+\end{appendices}
+
+
+
+\end{document}
+
+%------------------------------------------------------------------------------
+% End of journal.tex
+%------------------------------------------------------------------------------
